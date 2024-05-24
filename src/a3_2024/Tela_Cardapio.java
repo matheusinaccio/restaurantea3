@@ -14,12 +14,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.DropMode;
+import javax.swing.JTextArea;
 
 public class Tela_Cardapio extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
 	private JTextField txtObservao;
 
 	/**
@@ -50,60 +50,151 @@ public class Tela_Cardapio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Pedidos");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNewLabel.setBounds(142, 11, 84, 44);
-		contentPane.add(lblNewLabel);
+		//CAIXA DE PEDIDOS
 		
-		JLabel lblNomePedido = new JLabel("NOME PEDIDO");
-		lblNomePedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNomePedido.setBounds(455, 47, 156, 44);
-		contentPane.add(lblNomePedido);
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(49, 85, 316, 222);
+		contentPane.add(textArea);
 		
-		JButton btnNewButton = new JButton("Pedir");
-		btnNewButton.setBounds(642, 62, 89, 23);
-		contentPane.add(btnNewButton);
+		JLabel lbl1pedido = new JLabel("X-TUDO");
+		lbl1pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl1pedido.setBounds(455, 44, 156, 44);
+		contentPane.add(lbl1pedido);
 		
-		JLabel lblNomePedido_1 = new JLabel("NOME PEDIDO");
-		lblNomePedido_1.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNomePedido_1.setBounds(455, 114, 156, 44);
-		contentPane.add(lblNomePedido_1);
+		//teste de array ---------------------------------------------------------
 		
-		JButton btnNewButton_1 = new JButton("Pedir");
-		btnNewButton_1.setBounds(642, 129, 89, 23);
-		contentPane.add(btnNewButton_1);
 		
-		JLabel lblNomePedido_2 = new JLabel("NOME PEDIDO");
-		lblNomePedido_2.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNomePedido_2.setBounds(455, 189, 156, 44);
-		contentPane.add(lblNomePedido_2);
 		
-		JButton btnNewButton_2 = new JButton("Pedir");
-		btnNewButton_2.setBounds(642, 204, 89, 23);
-		contentPane.add(btnNewButton_2);
+		//PRIMEIRO BOTAO ADICIONAR
+		JButton btn1Button = new JButton(" + ");
+		btn1Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText(textArea.getText() + "   X-TUDO ;\n   ");
 		
-		JLabel lblNomePedido_3 = new JLabel("NOME PEDIDO");
-		lblNomePedido_3.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNomePedido_3.setBounds(455, 264, 156, 44);
-		contentPane.add(lblNomePedido_3);
+				
+			
+			
+			}
+		});
+		btn1Button.setBounds(628, 63, 53, 14);
+		contentPane.add(btn1Button);
 		
-		JButton btnNewButton_3 = new JButton("Pedir");
-		btnNewButton_3.setBounds(642, 279, 89, 23);
-		contentPane.add(btnNewButton_3);
+		//SEGUNDO BOTAO ADICIONAR
+		JButton btn2Button = new JButton(" + ");
+		btn2Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() + "X-BURGUER ;\n  ");
+					}
+		});
+		btn2Button.setBounds(628, 90, 53, 14);
+		contentPane.add(btn2Button);
+				
+		//terceiro BOTAO ADICIONAR
+				
+		JButton btn3Button = new JButton(" + ");
+		btn3Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +" X-AMERICANO ;\n ");
+		}
+		});
+		btn3Button.setBounds(628, 120, 53, 14);
+		contentPane.add(btn3Button);
+				
+		//quarto BOTAO ADICIONAR
+				
+		JButton btn4Button = new JButton(" + ");
+		btn4Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"  X-SALADA ;\n");
+		}
+		});
+		btn4Button.setBounds(628, 151, 53, 14);
+		contentPane.add(btn4Button);
+				
+		//quinto BOTAO ADICIONAR
+				
+		JButton btn5Button = new JButton(" + ");
+		btn5Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"   X-AMODA ;\n");
+		}
+		});
+		btn5Button.setBounds(628, 183, 53, 14);
+		contentPane.add(btn5Button);
 		
-		JLabel lblNomePedido_4 = new JLabel("NOME PEDIDO");
-		lblNomePedido_4.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblNomePedido_4.setBounds(455, 350, 156, 44);
-		contentPane.add(lblNomePedido_4);
+		//sexto BOTAO ADICIONAR
 		
-		JButton btnNewButton_4 = new JButton("Pedir");
-		btnNewButton_4.setBounds(642, 365, 89, 23);
-		contentPane.add(btnNewButton_4);
+		JButton btn6Button = new JButton(" + ");
+		btn6Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"   X-FRANGO ;\n");
+		}
+		});
+		btn6Button.setBounds(628, 216, 53, 14);
+		contentPane.add(btn6Button);
 		
-		textField = new JTextField();
-		textField.setBounds(47, 66, 318, 256);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		//setimo BOTAO ADICIONAR
+		
+		JButton btn7Button = new JButton(" + ");
+		btn7Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"   X-CALABRESA ;\n");
+		}
+		});
+		btn7Button.setBounds(628, 248, 53, 14);
+		contentPane.add(btn7Button);
+		
+		//oitavo BOTAO ADICIONAR
+		
+		JButton btn8Button = new JButton(" + ");
+		btn8Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"   X-BACON ;\n");
+		}
+		});
+		btn8Button.setBounds(628, 278, 53, 14);
+		contentPane.add(btn8Button);
+				
+		//nono BOTAO ADICIONAR
+				
+		JButton btn9Button = new JButton(" + ");
+		btn9Button.addActionListener(new ActionListener() {
+		public void actionPerformed(ActionEvent e) {
+			textArea.setText(textArea.getText() +"   MISTO ;\n");
+		}
+		});
+		btn9Button.setBounds(628, 308, 53, 14);
+		contentPane.add(btn9Button);
+		
+		
+		
+		JLabel lbl2pedido = new JLabel("X-BURGUER");
+		lbl2pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl2pedido.setBounds(455, 75, 156, 44);
+		contentPane.add(lbl2pedido);
+		
+	
+		
+		JLabel lbl3pedido = new JLabel("X-AMERICANO");
+		lbl3pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl3pedido.setBounds(455, 105, 156, 44);
+		contentPane.add(lbl3pedido);
+		
+	
+		
+		JLabel lbl4pedido = new JLabel("X-SALADA");
+		lbl4pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl4pedido.setBounds(455, 136, 156, 44);
+		contentPane.add(lbl4pedido);
+		
+		
+		
+		JLabel lbl5pedido = new JLabel("X-AMODA");
+		lbl5pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl5pedido.setBounds(455, 168, 156, 44);
+		contentPane.add(lbl5pedido);
+		
+		
 		
 		JButton btnNewButton_5 = new JButton("Enviar");
 		btnNewButton_5.addActionListener(new ActionListener() {
@@ -113,9 +204,16 @@ public class Tela_Cardapio extends JFrame {
 		btnNewButton_5.setBounds(49, 485, 89, 23);
 		contentPane.add(btnNewButton_5);
 		
-		JButton btnNewButton_5_1 = new JButton("Apagar");
-		btnNewButton_5_1.setBounds(253, 485, 89, 23);
-		contentPane.add(btnNewButton_5_1);
+		//BOTAO APAGAR PEDIDOS
+		
+		JButton btnAPAGAR = new JButton("Apagar");
+		btnAPAGAR.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        textArea.setText(""); 
+		    }
+		});
+		btnAPAGAR.setBounds(253, 485, 89, 23);
+		contentPane.add(btnAPAGAR);
 		
 		txtObservao = new JTextField();
 		txtObservao.setHorizontalAlignment(SwingConstants.LEFT);
@@ -133,5 +231,43 @@ public class Tela_Cardapio extends JFrame {
 		});
 		btnNewButton_6.setBounds(26, 11, 67, 44);
 		contentPane.add(btnNewButton_6);
+		
+		
+		
+		
+		
+		JLabel lbl6pedido = new JLabel("X-FRANGO");
+		
+		lbl6pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl6pedido.setBounds(455, 201, 156, 44);
+		contentPane.add(lbl6pedido);
+		
+		
+		
+		JLabel lbl7pedido = new JLabel("X-CALABRESA");
+		lbl7pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl7pedido.setBounds(455, 233, 156, 44);
+		contentPane.add(lbl7pedido);
+		
+		
+		
+		JLabel lbl8pedido = new JLabel("X-BACON");
+		lbl8pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl8pedido.setBounds(455, 263, 156, 44);
+		contentPane.add(lbl8pedido);
+		
+		
+		
+		JLabel lbl9pedido = new JLabel("MISTO\r\n");
+		lbl9pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lbl9pedido.setBounds(455, 298, 156, 44);
+		contentPane.add(lbl9pedido);
+		
+		
+		
+		
+		
+		
+		
 	}
 }
