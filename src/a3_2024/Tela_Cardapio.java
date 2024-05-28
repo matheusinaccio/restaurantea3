@@ -27,6 +27,7 @@ public class Tela_Cardapio extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtObservao;
 	ArrayList<String> Lista = new ArrayList<>();
+	ArrayList<String> Observacao = new ArrayList<>();
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -40,9 +41,8 @@ public class Tela_Cardapio extends JFrame {
 			}
 		});
 	}
+
 	public Tela_Cardapio() {
-		
-		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -53,6 +53,7 @@ public class Tela_Cardapio extends JFrame {
 		//Labels e TextAreas
 		
 		JTextArea textArea = new JTextArea();
+		textArea.setEditable(false);
 		textArea.setBounds(49, 85, 316, 222);
 		contentPane.add(textArea);
 		//observação
@@ -105,10 +106,6 @@ public class Tela_Cardapio extends JFrame {
 		lbl9pedido.setBounds(455, 298, 156, 44);
 		contentPane.add(lbl9pedido);
 		
-				
-		
-		
-		
 		
 		//Botoes --------------------------------
 		//teste contador
@@ -121,8 +118,6 @@ public class Tela_Cardapio extends JFrame {
 		final int[] contadorXcalabresa = {0};
 		final int[] contadorXbacon = {0};
 		final int[] contadorXmisto = {0};
-		
-		
 		
 
 		//Botão Xtudo
@@ -148,8 +143,6 @@ public class Tela_Cardapio extends JFrame {
 	        textArea.setText(novoTexto);
 	    }
 	});
-		
-			
 		
 		btn2Button.setBounds(628, 90, 53, 14);
 		contentPane.add(btn2Button);
@@ -257,42 +250,54 @@ public class Tela_Cardapio extends JFrame {
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					JTextArea seuTextArea = textArea;
-					if (textArea.getText().trim().isEmpty()) {
-						JOptionPane.showMessageDialog(null, "O campo de texto está vazio!");
-						System.out.println("Request NULL");
-					}else{
-						Lista.add(textArea.getText());
-						System.out.println(Lista);
-			
+				JTextArea seuTextArea = textArea;
+				if (textArea.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "O campo de texto está vazio!");
+					System.out.println("Request NULL");
+				}else{
+				Lista.add(textArea.getText());
+				Observacao.add(textObserv.getText());
+				System.out.println(Lista);
+				System.out.println(Observacao);
+				contadorXtudo[0] = 0;                 
+				contadorXburguer [0] = 0;                 
+				contadorXamericano[0] = 0;                 
+				contadorXsalada [0] = 0;                 
+				contadorXAmoda[0] = 0;                 
+				contadorXfrango[0] = 0;                 
+				contadorXcalabresa [0] = 0;                 
+				contadorXbacon[0] = 0;                 
+				contadorXmisto[0] = 0;
 				}
+				textArea.setText("");
+				textObserv.setText("");
+				Lista.clear();
+				Observacao.clear();
+
 		}
 		});
 		btnEnviar.setBounds(49, 485, 89, 23);
 		contentPane.add(btnEnviar);
 		
 		//botao apagar 
-		
 		JButton btnAPAGAR = new JButton("Apagar");
 		btnAPAGAR.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
-		        textArea.setText("");
+		    textArea.setText("");
 				Lista.clear();
 				contadorXtudo[0] = 0;
 				contadorXburguer [0] = 0;
 				contadorXamericano[0] = 0;
-			    contadorXsalada [0] = 0;
-			    contadorXAmoda[0] = 0;
-			    contadorXfrango[0] = 0;
+			  contadorXsalada [0] = 0;
+			  contadorXAmoda[0] = 0;
+			  contadorXfrango[0] = 0;
 				contadorXcalabresa [0] = 0;
-			    contadorXbacon[0] = 0;
-			    contadorXmisto[0] = 0;
-						
+			  contadorXbacon[0] = 0;
+			  contadorXmisto[0] = 0;	
 		    }
 		});
 		btnAPAGAR.setBounds(253, 485, 89, 23);
-		contentPane.add(btnAPAGAR);
-		
+		contentPane.add(btnAPAGAR);	
 		JButton btnNewButton_6 = new JButton("Voltar");
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -303,7 +308,5 @@ public class Tela_Cardapio extends JFrame {
 		});
 		btnNewButton_6.setBounds(26, 11, 67, 44);
 		contentPane.add(btnNewButton_6);
-		
-		
 	}
 }
