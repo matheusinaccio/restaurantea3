@@ -6,12 +6,16 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import javafx.scene.chart.PieChart.Data;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
@@ -19,16 +23,13 @@ import javax.swing.DropMode;
 import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
 
-
-public class Tela_Cardapio extends JFrame {
-	
+public class Tela_Cardapio extends JFrame {	
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField txtObservao;
 	ArrayList<String> Lista = new ArrayList<>();
-	ArrayList<String> Observacao = new ArrayList<>();
-
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -190,7 +191,6 @@ public class Tela_Cardapio extends JFrame {
 		contentPane.add(btn5Button);
 		
 		//Botão XFrango
-		
 		JButton btn6Button = new JButton(" + ");
 		btn6Button.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -256,9 +256,8 @@ public class Tela_Cardapio extends JFrame {
 					System.out.println("Request NULL");
 				}else{
 				Lista.add(textArea.getText());
-				Observacao.add(textObserv.getText());
+				Lista.add(textObserv.getText());
 				System.out.println(Lista);
-				System.out.println(Observacao);
 				contadorXtudo[0] = 0;                 
 				contadorXburguer [0] = 0;                 
 				contadorXamericano[0] = 0;                 
@@ -272,8 +271,6 @@ public class Tela_Cardapio extends JFrame {
 				textArea.setText("");
 				textObserv.setText("");
 				Lista.clear();
-				Observacao.clear();
-
 		}
 		});
 		btnEnviar.setBounds(49, 485, 89, 23);
