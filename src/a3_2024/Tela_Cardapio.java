@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import javafx.scene.chart.PieChart.Data;
+
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -15,15 +15,21 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
-import java.sql.Date;
+
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import javax.swing.DropMode;
 import javax.swing.JTextArea;
 import javax.swing.JOptionPane;
+import java.util.Random;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 public class Tela_Cardapio extends JFrame {	
+	
+	
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -43,13 +49,32 @@ public class Tela_Cardapio extends JFrame {
 		});
 	}
 
+	
+        
 	public Tela_Cardapio() {
+		 Random random = new Random();
+	        
+	        
+	        int numeroSorteado = random.nextInt(5) + 1;
+	       
+	        
+	        
+	        LocalDateTime agora = LocalDateTime.now();
+	        
+	        // Define o formato da hora
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	        String horaFormatada = agora.format(formatter);
+
+	      
+	        
+	        
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		
 		//Labels e TextAreas
 		
@@ -252,14 +277,17 @@ public class Tela_Cardapio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				JTextArea seuTextArea = textArea;
 				if (textArea.getText().trim().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "O campo de texto está vazio!");
+					
+					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
 					System.out.println("Request NULL");
+					
 				}else{
+				Lista.add("Mesa: " + numeroSorteado + ", Horario do Pedido: "+horaFormatada);
 				Lista.add(textArea.getText());
 				Lista.add(textObserv.getText());
 				System.out.println(Lista);
-				contadorXtudo[0] = 0;                 
-				contadorXburguer [0] = 0;                 
+				contadorXtudo[0] = 0;                  
+				contadorXburguer [0] = 0;                
 				contadorXamericano[0] = 0;                 
 				contadorXsalada [0] = 0;                 
 				contadorXAmoda[0] = 0;                 
