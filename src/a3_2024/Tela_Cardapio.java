@@ -35,19 +35,19 @@ public class Tela_Cardapio extends JFrame {
   private JTextArea textArea;
   ArrayList<String> Lista = new ArrayList<>();
     
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-    	public void run() {
-    	  try {
-    	    Tela_Cardapio frame = new Tela_Cardapio();
-    	    frame.setVisible(true);
-    	  } catch (Exception e) {
-    	    e.printStackTrace();
-    	  }
-    	}
-    });
-    }
-	public class TextAreaPrinter implements Printable {
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+		  	try {
+		    	Tela_Cardapio frame = new Tela_Cardapio();
+		    	frame.setVisible(true);
+		  	} catch (Exception e) {
+		    	e.printStackTrace();
+		  	}
+			}
+		});
+	}
+  public class TextAreaPrinter implements Printable {
 		private JTextArea textObserv;
 		private ArrayList<String> Lista;
 	  public void n_TextAreaPrinter(JTextArea textObserv) {
@@ -80,11 +80,11 @@ public class Tela_Cardapio extends JFrame {
 	}
 	public Tela_Cardapio() {
 		Random random = new Random(); 
-	  int numeroSorteado = random.nextInt(5) + 1;
-	  LocalDateTime agora = LocalDateTime.now();  
-	  // Define o formato da hora
-	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	  String horaFormatada = agora.format(formatter);  
+		int numeroSorteado = random.nextInt(5) + 1;
+		LocalDateTime agora = LocalDateTime.now();  
+		// Define o formato da hora
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String horaFormatada = agora.format(formatter);  
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -180,7 +180,7 @@ public class Tela_Cardapio extends JFrame {
 	        String novoTexto = textoAtual.replaceAll("\\d+-X-BURGUER ;\n", "") + contadorXburguer[0] + "-X-BURGUER ;\n";
 	        textArea.setText(novoTexto);
 	    }
-	});
+		});
 		
 		btn2Button.setBounds(628, 90, 53, 14);
 		contentPane.add(btn2Button);
@@ -195,7 +195,7 @@ public class Tela_Cardapio extends JFrame {
 	        String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0] + "-X-AMERICANO ;\n";
 	        textArea.setText(novoTexto);
 	    }
-	});
+		});
 		btn3Button.setBounds(628, 120, 53, 14);
 		contentPane.add(btn3Button);
 				
@@ -281,44 +281,44 @@ public class Tela_Cardapio extends JFrame {
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			JTextArea seuTextArea = textArea;
-			if (textArea.getText().trim().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
-				System.out.println("Request NULL");
-				
-			}else{
-			System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
-			Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Hora: "+ horaFormatada);
-			// Lista.add(horaFormatada);
-			Lista.add("Pedidos //");
-			Lista.add(textArea.getText());
-			Lista.add("Observações //");
-			Lista.add(textObserv.getText());
-			System.out.println(Lista);
-			try {
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new TextAreaPrinter(Lista));
-        // job.setPrintable(new TextAreaPrinter(textArea));
-        if (job.printDialog()) {
-          job.print();
-        }
-      } catch (PrinterException ex) {
-        ex.printStackTrace();
-      }
-			contadorXtudo[0] = 0;
-			contadorXburguer [0] = 0;
-			contadorXamericano[0] = 0;
-			contadorXsalada [0] = 0;
-			contadorXAmoda[0] = 0;
-			contadorXfrango[0] = 0;
-			contadorXcalabresa [0] = 0;
-			contadorXbacon[0] = 0;
-			contadorXmisto[0] = 0;
-      }
-			textArea.setText("");
-			textObserv.setText("");
-			Lista.clear();
-		}
+				JTextArea seuTextArea = textArea;
+				if (textArea.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
+					System.out.println("Request NULL");
+					
+				}else{
+					System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
+					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Hora: "+ horaFormatada);
+					// Lista.add(horaFormatada);
+					Lista.add("Pedidos //");
+					Lista.add(textArea.getText());
+					Lista.add("Observações //");
+					Lista.add(textObserv.getText());
+					System.out.println(Lista);
+					try {
+		        PrinterJob job = PrinterJob.getPrinterJob();
+		        job.setPrintable(new TextAreaPrinter(Lista));
+		        // job.setPrintable(new TextAreaPrinter(textArea));
+		        if (job.printDialog()) {
+		          job.print();
+		        }
+		      } catch (PrinterException ex) {
+		        ex.printStackTrace();
+		      }
+					contadorXtudo[0] = 0;
+					contadorXburguer [0] = 0;
+					contadorXamericano[0] = 0;
+					contadorXsalada [0] = 0;
+					contadorXAmoda[0] = 0;
+					contadorXfrango[0] = 0;
+					contadorXcalabresa [0] = 0;
+					contadorXbacon[0] = 0;
+					contadorXmisto[0] = 0;
+	      }
+				textArea.setText("");
+				textObserv.setText("");
+				Lista.clear();
+			}
 		});
 		btnEnviar.setBounds(49, 485, 89, 23);
 		contentPane.add(btnEnviar);
