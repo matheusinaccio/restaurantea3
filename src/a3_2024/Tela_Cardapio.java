@@ -1,13 +1,15 @@
 package a3_2024;
 
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.print.*;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -26,58 +28,70 @@ import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
-public class Tela_Cardapio extends JFrame {	
-	
-	
-
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField txtObservao;
-	ArrayList<String> Lista = new ArrayList<>();
-	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Tela_Cardapio frame = new Tela_Cardapio();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+public class Tela_Cardapio extends JFrame {    
+  private static final long serialVersionUID = 1L;
+  private JPanel contentPane;
+  private JTextArea textObserv;
+  private JTextArea textArea;
+  ArrayList<String> Lista = new ArrayList<>();
+    
+  public static void main(String[] args) {
+    EventQueue.invokeLater(new Runnable() {
+    	public void run() {
+    	  try {
+    	    Tela_Cardapio frame = new Tela_Cardapio();
+    	    frame.setVisible(true);
+    	  } catch (Exception e) {
+    	    e.printStackTrace();
+    	  }
+    	}
+    });
+    }
+	public class TextAreaPrinter implements Printable {
+		private JTextArea textObserv;
+		private ArrayList<String> Lista;
+	  public void n_TextAreaPrinter(JTextArea textObserv) {
+	    this.textObserv = textObserv;
+	  }
+		public TextAreaPrinter(ArrayList<String> Lista) {
+      this.Lista = Lista;
+    }
+	  @Override
+	  public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+	    if (page > 0) {
+	      return NO_SUCH_PAGE;
+	    }
+	    Graphics2D g2d = (Graphics2D) g;
+	    g2d.translate(pf.getImageableX(), pf.getImageableY());
+	    // Ajuste o tamanho da fonte para a impressão térmica
+	    Font font = new Font("Monospaced", Font.PLAIN, 12);
+	    g2d.setFont(font);
+	    // Calcular a posição inicial
+	    int x = 10;
+	    int y = 10;
+	    // Divida o texto em linhas
+	    // String[] lines = textObserv.getText().split("\n");
+	    for (String item : Lista) {
+	      y += g2d.getFontMetrics().getHeight();
+	      g2d.drawString(item, x, y);
+	    }
+	    return PAGE_EXISTS;
+	  }
 	}
-
-	
-        
 	public Tela_Cardapio() {
-		 Random random = new Random();
-	        
-	        
-	        int numeroSorteado = random.nextInt(5) + 1;
-	       
-	        
-	        
-	        LocalDateTime agora = LocalDateTime.now();
-	        
-	        // Define o formato da hora
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	        String horaFormatada = agora.format(formatter);
-
-	      
-	        
-	        
+		Random random = new Random(); 
+	  int numeroSorteado = random.nextInt(5) + 1;
+	  LocalDateTime agora = LocalDateTime.now();  
+	  // Define o formato da hora
+	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	  String horaFormatada = agora.format(formatter);  
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		
 		//Labels e TextAreas
-		
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(49, 85, 316, 222);
@@ -131,8 +145,6 @@ public class Tela_Cardapio extends JFrame {
 		lbl9pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl9pedido.setBounds(455, 298, 156, 44);
 		contentPane.add(lbl9pedido);
-		
-		
 		//Botoes --------------------------------
 		//teste contador
 		final int[] contadorXtudo = {0};
@@ -200,9 +212,7 @@ public class Tela_Cardapio extends JFrame {
 	});
 		btn4Button.setBounds(628, 151, 53, 14);
 		contentPane.add(btn4Button);
-				
 		//Botão XAmoda
-				
 		JButton btn5Button = new JButton(" + ");
 		btn5Button.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -214,7 +224,6 @@ public class Tela_Cardapio extends JFrame {
 	});
 		btn5Button.setBounds(628, 183, 53, 14);
 		contentPane.add(btn5Button);
-		
 		//Botão XFrango
 		JButton btn6Button = new JButton(" + ");
 		btn6Button.addActionListener(new ActionListener() {
@@ -227,7 +236,6 @@ public class Tela_Cardapio extends JFrame {
 	});
 		btn6Button.setBounds(628, 216, 53, 14);
 		contentPane.add(btn6Button);
-		
 		//Botão XCalabresa
 		
 		JButton btn7Button = new JButton(" + ");
@@ -241,9 +249,7 @@ public class Tela_Cardapio extends JFrame {
 	});
 		btn7Button.setBounds(628, 248, 53, 14);
 		contentPane.add(btn7Button);
-		
 		//Botão XBacon
-		
 		JButton btn8Button = new JButton(" + ");
 		btn8Button.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
@@ -275,35 +281,47 @@ public class Tela_Cardapio extends JFrame {
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JTextArea seuTextArea = textArea;
-				if (textArea.getText().trim().isEmpty()) {
-					
-					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
-					System.out.println("Request NULL");
-					
-				}else{
-				Lista.add("Mesa: " + numeroSorteado + ", Horario do Pedido: "+horaFormatada);
-				Lista.add(textArea.getText());
-				Lista.add(textObserv.getText());
-				System.out.println(Lista);
-				contadorXtudo[0] = 0;                  
-				contadorXburguer [0] = 0;                
-				contadorXamericano[0] = 0;                 
-				contadorXsalada [0] = 0;                 
-				contadorXAmoda[0] = 0;                 
-				contadorXfrango[0] = 0;                 
-				contadorXcalabresa [0] = 0;                 
-				contadorXbacon[0] = 0;                 
-				contadorXmisto[0] = 0;
-				}
-				textArea.setText("");
-				textObserv.setText("");
-				Lista.clear();
+			JTextArea seuTextArea = textArea;
+			if (textArea.getText().trim().isEmpty()) {
+				JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
+				System.out.println("Request NULL");
+				
+			}else{
+			System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
+			Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Hora: "+ horaFormatada);
+			// Lista.add(horaFormatada);
+			Lista.add("Pedidos //");
+			Lista.add(textArea.getText());
+			Lista.add("Observações //");
+			Lista.add(textObserv.getText());
+			System.out.println(Lista);
+			try {
+        PrinterJob job = PrinterJob.getPrinterJob();
+        job.setPrintable(new TextAreaPrinter(Lista));
+        // job.setPrintable(new TextAreaPrinter(textArea));
+        if (job.printDialog()) {
+          job.print();
+        }
+      } catch (PrinterException ex) {
+        ex.printStackTrace();
+      }
+			contadorXtudo[0] = 0;
+			contadorXburguer [0] = 0;
+			contadorXamericano[0] = 0;
+			contadorXsalada [0] = 0;
+			contadorXAmoda[0] = 0;
+			contadorXfrango[0] = 0;
+			contadorXcalabresa [0] = 0;
+			contadorXbacon[0] = 0;
+			contadorXmisto[0] = 0;
+      }
+			textArea.setText("");
+			textObserv.setText("");
+			Lista.clear();
 		}
 		});
 		btnEnviar.setBounds(49, 485, 89, 23);
 		contentPane.add(btnEnviar);
-		
 		//botao apagar 
 		JButton btnAPAGAR = new JButton("Apagar");
 		btnAPAGAR.addActionListener(new ActionListener() {
