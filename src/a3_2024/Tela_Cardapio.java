@@ -28,6 +28,7 @@ import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+<<<<<<< HEAD
 public class Tela_Cardapio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -79,6 +80,65 @@ public class Tela_Cardapio extends JFrame {
 		// Define o formato da hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		String horaFormatada = agora.format(formatter);
+=======
+public class Tela_Cardapio extends JFrame {    
+  private static final long serialVersionUID = 1L;
+  private JPanel contentPane;
+  private JTextArea textObserv;
+  private JTextArea textArea;
+  ArrayList<String> Lista = new ArrayList<>();
+    
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+		  	try {
+		    	Tela_Cardapio frame = new Tela_Cardapio();
+		    	frame.setVisible(true);
+		  	} catch (Exception e) {
+		    	e.printStackTrace();
+		  	}
+			}
+		});
+	}
+  public class TextAreaPrinter implements Printable {
+		private JTextArea textObserv;
+		private ArrayList<String> Lista;
+	  public void n_TextAreaPrinter(JTextArea textObserv) {
+	    this.textObserv = textObserv;
+	  }
+		public TextAreaPrinter(ArrayList<String> Lista) {
+      this.Lista = Lista;
+    }
+	  @Override
+	  public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
+	    if (page > 0) {
+	      return NO_SUCH_PAGE;
+	    }
+	    Graphics2D g2d = (Graphics2D) g;
+	    g2d.translate(pf.getImageableX(), pf.getImageableY());
+	    // Ajuste o tamanho da fonte para a impressão térmica
+	    Font font = new Font("Monospaced", Font.PLAIN, 12);
+	    g2d.setFont(font);
+	    // Calcular a posição inicial
+	    int x = 10;
+	    int y = 10;
+	    // Divida o texto em linhas
+	    // String[] lines = textObserv.getText().split("\n");
+	    for (String item : Lista) {
+	      y += g2d.getFontMetrics().getHeight();
+	      g2d.drawString(item, x, y);
+	    }
+	    return PAGE_EXISTS;
+	  }
+	}
+	public Tela_Cardapio() {
+		Random random = new Random(); 
+		int numeroSorteado = random.nextInt(5) + 1;
+		LocalDateTime agora = LocalDateTime.now();  
+		// Define o formato da hora
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String horaFormatada = agora.format(formatter);  
+>>>>>>> 1acf2991efae12e0c7e1620f071b8fa2aa8598d8
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
@@ -166,6 +226,7 @@ public class Tela_Cardapio extends JFrame {
 		// Botão Xburger
 		JButton btn2Button = new JButton(" + ");
 		btn2Button.addActionListener(new ActionListener() {
+<<<<<<< HEAD
 			public void actionPerformed(ActionEvent e) {
 				contadorXburguer[0]++;
 				String textoAtual = textArea.getText();
@@ -174,11 +235,22 @@ public class Tela_Cardapio extends JFrame {
 			}
 		});
 
+=======
+		public void actionPerformed(ActionEvent e) {
+			contadorXburguer[0]++;
+			String textoAtual = textArea.getText();
+	        String novoTexto = textoAtual.replaceAll("\\d+-X-BURGUER ;\n", "") + contadorXburguer[0] + "-X-BURGUER ;\n";
+	        textArea.setText(novoTexto);
+	    }
+		});
+		
+>>>>>>> 1acf2991efae12e0c7e1620f071b8fa2aa8598d8
 		btn2Button.setBounds(628, 90, 53, 14);
 		contentPane.add(btn2Button);
 		// Botão XAmericano
 		JButton btn3Button = new JButton(" + ");
 		btn3Button.addActionListener(new ActionListener() {
+<<<<<<< HEAD
 			public void actionPerformed(ActionEvent e) {
 				contadorXamericano[0]++;
 				String textoAtual = textArea.getText();
@@ -186,6 +258,14 @@ public class Tela_Cardapio extends JFrame {
 						+ "-X-AMERICANO;\n";
 				textArea.setText(novoTexto);
 			}
+=======
+		public void actionPerformed(ActionEvent e) {
+			contadorXamericano[0]++;
+			String textoAtual = textArea.getText();
+	        String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0] + "-X-AMERICANO ;\n";
+	        textArea.setText(novoTexto);
+	    }
+>>>>>>> 1acf2991efae12e0c7e1620f071b8fa2aa8598d8
 		});
 		btn3Button.setBounds(628, 120, 53, 14);
 		contentPane.add(btn3Button);
@@ -277,6 +357,7 @@ public class Tela_Cardapio extends JFrame {
 				if (textArea.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
 					System.out.println("Request NULL");
+<<<<<<< HEAD
 
 				} else {
 					// for(int i = 0; i < contadorXmisto.length; i++){
@@ -332,6 +413,38 @@ public class Tela_Cardapio extends JFrame {
 					contadorXbacon[0] = 0;
 					contadorXmisto[0] = 0;
 				}
+=======
+					
+				}else{
+					System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
+					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Hora: "+ horaFormatada);
+					// Lista.add(horaFormatada);
+					Lista.add("Pedidos //");
+					Lista.add(textArea.getText());
+					Lista.add("Observações //");
+					Lista.add(textObserv.getText());
+					System.out.println(Lista);
+					try {
+		        PrinterJob job = PrinterJob.getPrinterJob();
+		        job.setPrintable(new TextAreaPrinter(Lista));
+		        // job.setPrintable(new TextAreaPrinter(textArea));
+		        if (job.printDialog()) {
+		          job.print();
+		        }
+		      } catch (PrinterException ex) {
+		        ex.printStackTrace();
+		      }
+					contadorXtudo[0] = 0;
+					contadorXburguer [0] = 0;
+					contadorXamericano[0] = 0;
+					contadorXsalada [0] = 0;
+					contadorXAmoda[0] = 0;
+					contadorXfrango[0] = 0;
+					contadorXcalabresa [0] = 0;
+					contadorXbacon[0] = 0;
+					contadorXmisto[0] = 0;
+	      }
+>>>>>>> 1acf2991efae12e0c7e1620f071b8fa2aa8598d8
 				textArea.setText("");
 				textObserv.setText("");
 				Lista.clear();
