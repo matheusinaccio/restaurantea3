@@ -28,79 +28,73 @@ import java.util.Random;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Tela_Cardapio extends JFrame {    
-  private static final long serialVersionUID = 1L;
-  private JPanel contentPane;
-  private JTextArea textObserv;
-  private JTextArea textArea;
-  ArrayList<String> Lista = new ArrayList<>();
-    
-  public static void main(String[] args) {
-    EventQueue.invokeLater(new Runnable() {
-    	public void run() {
-    	  try {
-    	    Tela_Cardapio frame = new Tela_Cardapio();
-    	    frame.setVisible(true);
-    	  } catch (Exception e) {
-    	    e.printStackTrace();
-    	  }
-    	}
-    });
+public class Tela_Cardapio extends JFrame {
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextArea textObserv;
+	boolean Xmisto= false;
+	boolean XBacon = false;
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Tela_Cardapio frame = new Tela_Cardapio();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	public class ArrayPrinter implements Printable {
+		public ArrayList<String> Lista;
+		public ArrayPrinter(ArrayList<String> Lista) {
+			this.Lista = Lista;
+		}
+		public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+        Graphics2D g2d = (Graphics2D) graphics;
+        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+
+        // Set the font and font size
+        g2d.setFont(new Font("Monospaced", Font.PLAIN, 6));
+
+        // Print the ArrayList content
+				int y = 5;
+			// Divida o texto em linhas
+			// String[] lines = textObserv.getText().split("\n");
+			for (String item : Lista) {
+				String[] lines = item.split("\\r?\\n");
+				y += 10;
+				g2d.drawString(item, 0, y);
+			}
+			return PAGE_EXISTS;
     }
-	public class TextAreaPrinter implements Printable {
-		private JTextArea textObserv;
-		private ArrayList<String> Lista;
-	  public void n_TextAreaPrinter(JTextArea textObserv) {
-	    this.textObserv = textObserv;
-	  }
-		public TextAreaPrinter(ArrayList<String> Lista) {
-      this.Lista = Lista;
-    }
-	  @Override
-	  public int print(Graphics g, PageFormat pf, int page) throws PrinterException {
-	    if (page > 0) {
-	      return NO_SUCH_PAGE;
-	    }
-	    Graphics2D g2d = (Graphics2D) g;
-	    g2d.translate(pf.getImageableX(), pf.getImageableY());
-	    // Ajuste o tamanho da fonte para a impressão térmica
-	    Font font = new Font("Monospaced", Font.PLAIN, 12);
-	    g2d.setFont(font);
-	    // Calcular a posição inicial
-	    int x = 10;
-	    int y = 10;
-	    // Divida o texto em linhas
-	    // String[] lines = textObserv.getText().split("\n");
-	    for (String item : Lista) {
-	      y += g2d.getFontMetrics().getHeight();
-	      g2d.drawString(item, x, y);
-	    }
-	    return PAGE_EXISTS;
-	  }
 	}
 	public Tela_Cardapio() {
-		Random random = new Random(); 
-	  int numeroSorteado = random.nextInt(5) + 1;
-	  LocalDateTime agora = LocalDateTime.now();  
-	  // Define o formato da hora
-	  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-	  String horaFormatada = agora.format(formatter);  
+		ArrayList<String> Lista = new ArrayList<>();
+		Random random = new Random();
+		int numeroSorteado = random.nextInt(5) + 1;
+		LocalDateTime agora = LocalDateTime.now();
+		// Define o formato da hora
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+		String horaFormatada = agora.format(formatter);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		//Labels e TextAreas
+		// Labels e TextAreas
 		JTextArea textArea = new JTextArea();
 		textArea.setEditable(false);
 		textArea.setBounds(49, 85, 316, 222);
 		contentPane.add(textArea);
-		//observação
+		// observação
 		JTextArea textObserv = new JTextArea();
 		textObserv.setBounds(49, 334, 316, 108);
 		contentPane.add(textObserv);
-		
+
 		JLabel lbl1pedido = new JLabel("X-TUDO");
 		lbl1pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl1pedido.setBounds(455, 44, 156, 44);
@@ -110,22 +104,22 @@ public class Tela_Cardapio extends JFrame {
 		lbl2pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl2pedido.setBounds(455, 75, 156, 44);
 		contentPane.add(lbl2pedido);
-		
+
 		JLabel lbl3pedido = new JLabel("X-AMERICANO");
 		lbl3pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl3pedido.setBounds(455, 105, 156, 44);
 		contentPane.add(lbl3pedido);
-		
+
 		JLabel lbl4pedido = new JLabel("X-SALADA");
 		lbl4pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl4pedido.setBounds(455, 136, 156, 44);
 		contentPane.add(lbl4pedido);
-		
+
 		JLabel lbl5pedido = new JLabel("X-AMODA");
 		lbl5pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl5pedido.setBounds(455, 168, 156, 44);
 		contentPane.add(lbl5pedido);
-		
+
 		JLabel lbl6pedido = new JLabel("X-FRANGO");
 		lbl6pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl6pedido.setBounds(455, 201, 156, 44);
@@ -135,216 +129,239 @@ public class Tela_Cardapio extends JFrame {
 		lbl7pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl7pedido.setBounds(455, 233, 156, 44);
 		contentPane.add(lbl7pedido);
-		
+
 		JLabel lbl8pedido = new JLabel("X-BACON");
 		lbl8pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl8pedido.setBounds(455, 263, 156, 44);
 		contentPane.add(lbl8pedido);
-		
+
 		JLabel lbl9pedido = new JLabel("MISTO\r\n");
 		lbl9pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lbl9pedido.setBounds(455, 298, 156, 44);
 		contentPane.add(lbl9pedido);
-		//Botoes --------------------------------
-		//teste contador
-		final int[] contadorXtudo = {0};
-		final int[] contadorXburguer = {0};
-		final int[] contadorXamericano = {0};
-		final int[] contadorXsalada = {0};
-		final int[] contadorXAmoda = {0};
-		final int[] contadorXfrango = {0};
-		final int[] contadorXcalabresa = {0};
-		final int[] contadorXbacon = {0};
-		final int[] contadorXmisto = {0};
-		
-
-		//Botão Xtudo
+		// Botoes --------------------------------
+		// teste contador
+		final int[] contadorXtudo = { 0 };
+		final int[] contadorXburguer = { 0 };
+		final int[] contadorXamericano = { 0 };
+		final int[] contadorXsalada = { 0 };
+		final int[] contadorXAmoda = { 0 };
+		final int[] contadorXfrango = { 0 };
+		final int[] contadorXcalabresa = { 0 };
+		final int[] contadorXbacon = { 0 };
+		final int[] contadorXmisto = { 0 };
+		// Botão Xtudo
 		JButton btnaddXtudo = new JButton(" + ");
 		btnaddXtudo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXtudo[0]++;
 				String textoAtual = textArea.getText();
-		        String novoTexto = textoAtual.replaceAll("\\d+-X-TUDO ;\n", "") + contadorXtudo[0] + "-X-TUDO ;\n";
-		        textArea.setText(novoTexto);
-		    }
+				String novoTexto = textoAtual.replaceAll("\\d+-X-TUDO ;\n", "") + contadorXtudo[0] + "-X-TUDO ;\n";
+				textArea.setText(novoTexto);
+			}
 		});
 		btnaddXtudo.setBounds(628, 63, 53, 14);
 		contentPane.add(btnaddXtudo);
-		
-		//Botão Xburger
+
+		// Botão Xburger
 		JButton btn2Button = new JButton(" + ");
 		btn2Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXburguer[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-BURGUER ;\n", "") + contadorXburguer[0] + "-X-BURGUER ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
-		
+			public void actionPerformed(ActionEvent e) {
+				contadorXburguer[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-BURGUER ;\n", "") + contadorXburguer[0] + "-X-BURGUER ;\n";
+				textArea.setText(novoTexto);
+			}
+		});
+
 		btn2Button.setBounds(628, 90, 53, 14);
 		contentPane.add(btn2Button);
-				
-		//Botão XAmericano
-				
+		// Botão XAmericano
 		JButton btn3Button = new JButton(" + ");
 		btn3Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXamericano[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0] + "-X-AMERICANO ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXamericano[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0]
+						+ "-X-AMERICANO;\n";
+				textArea.setText(novoTexto);
+			}
+		});
 		btn3Button.setBounds(628, 120, 53, 14);
 		contentPane.add(btn3Button);
-				
-		//Botão XSalada
-				
+		// Botão XSalada
 		JButton btn4Button = new JButton(" + ");
 		btn4Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXsalada[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-SALADA ;\n", "") + contadorXsalada[0] + "-X-SALADA ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXsalada[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-SALADA ;\n", "") + contadorXsalada[0] + "-X-SALADA ;\n";
+				textArea.setText(novoTexto);
+			}
+		});
 		btn4Button.setBounds(628, 151, 53, 14);
 		contentPane.add(btn4Button);
-		//Botão XAmoda
+		// Botão XAmoda
 		JButton btn5Button = new JButton(" + ");
 		btn5Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXAmoda[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-AMODA ;\n", "") + contadorXAmoda[0] + "-X-AMODA ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXAmoda[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-AMODA ;\n", "") + contadorXAmoda[0] + "-X-AMODA ;\n";
+				textArea.setText(novoTexto);
+			}
+		});
 		btn5Button.setBounds(628, 183, 53, 14);
 		contentPane.add(btn5Button);
-		//Botão XFrango
+		// Botão XFrango
 		JButton btn6Button = new JButton(" + ");
 		btn6Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXfrango[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-FRANGO ;\n", "") + contadorXfrango[0] + "-X-FRANGO ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXfrango[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-FRANGO ;\n", "") + contadorXfrango[0] + "-X-FRANGO ;\n";
+				textArea.setText(novoTexto);
+			}
+		});
 		btn6Button.setBounds(628, 216, 53, 14);
 		contentPane.add(btn6Button);
-		//Botão XCalabresa
-		
+		// Botão XCalabresa
+
 		JButton btn7Button = new JButton(" + ");
 		btn7Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXcalabresa[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-CALABRESA ;\n", "") + contadorXcalabresa[0] + "-X-CALABRESA ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXcalabresa[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-CALABRESA ;\n", "") + contadorXcalabresa[0]
+						+ "-X-CALABRESA ;\n";
+				textArea.setText(novoTexto);
+			}
+		});
 		btn7Button.setBounds(628, 248, 53, 14);
 		contentPane.add(btn7Button);
-		//Botão XBacon
+		// Botão XBacon
 		JButton btn8Button = new JButton(" + ");
 		btn8Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXbacon[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-BACON ;\n", "") + contadorXbacon[0] + "-X-BACON ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXbacon[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-BACON ;\n", "") + contadorXbacon[0] + "-X-BACON ;\n";
+				textArea.setText(novoTexto);
+				XBacon = true;
+			}
+		});
 		btn8Button.setBounds(628, 278, 53, 14);
 		contentPane.add(btn8Button);
-				
-		//Botão Misto
-				
+
+		// Botão Misto
+
 		JButton btn9Button = new JButton(" + ");
 		btn9Button.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			contadorXmisto[0]++;
-			String textoAtual = textArea.getText();
-	        String novoTexto = textoAtual.replaceAll("\\d+-X-MISTO ;\n", "") + contadorXmisto[0] + "-X-MISTO ;\n";
-	        textArea.setText(novoTexto);
-	    }
-	});
+			public void actionPerformed(ActionEvent e) {
+				contadorXmisto[0]++;
+				String textoAtual = textArea.getText();
+				String novoTexto = textoAtual.replaceAll("\\d+-X-MISTO ;\n", "") + contadorXmisto[0] + "-X-MISTO ;\n";
+				textArea.setText(novoTexto);
+				Xmisto = true;
+			}
+		});
 		btn9Button.setBounds(628, 308, 53, 14);
 		contentPane.add(btn9Button);
-		
-		//Btn Com funçoes --------------------
+
+		// Btn Com funçoes --------------------
 
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			JTextArea seuTextArea = textArea;
-			if (textArea.getText().trim().isEmpty()) {
-				JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
-				System.out.println("Request NULL");
-				
-			}else{
-			System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
-			Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Hora: "+ horaFormatada);
-			// Lista.add(horaFormatada);
-			Lista.add("Pedidos //");
-			Lista.add(textArea.getText());
-			Lista.add("Observações //");
-			Lista.add(textObserv.getText());
-			System.out.println(Lista);
-			try {
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setPrintable(new TextAreaPrinter(Lista));
-        // job.setPrintable(new TextAreaPrinter(textArea));
-        if (job.printDialog()) {
-          job.print();
-        }
-      } catch (PrinterException ex) {
-        ex.printStackTrace();
-      }
-			contadorXtudo[0] = 0;
-			contadorXburguer [0] = 0;
-			contadorXamericano[0] = 0;
-			contadorXsalada [0] = 0;
-			contadorXAmoda[0] = 0;
-			contadorXfrango[0] = 0;
-			contadorXcalabresa [0] = 0;
-			contadorXbacon[0] = 0;
-			contadorXmisto[0] = 0;
-      }
-			textArea.setText("");
-			textObserv.setText("");
-			Lista.clear();
-		}
+				JTextArea seuTextArea = textArea;
+				if (textArea.getText().trim().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
+					System.out.println("Request NULL");
+
+				} else {
+					// for(int i = 0; i < contadorXmisto.length; i++){
+					// 	Lista.add("xmisto\n");
+					// 	contadorXmisto[0]--;
+					// }
+					if(XBacon == true){
+						Lista.add(contadorXbacon[0]+"-Xbacon\n");
+					}
+					if (Xmisto == true) {
+						Lista.add(contadorXmisto[0] + "-Xmisto\n");
+					}
+					System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
+					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Data: " + horaFormatada);
+					Lista.add("Pedidos //");
+					// Lista.add(textArea.getText());
+					Lista.add("Observações //");
+					Lista.add(textObserv.getText());
+					System.out.println(Lista);
+					//* Printer Teste Start*/
+					PrinterJob job = PrinterJob.getPrinterJob();
+					ArrayPrinter printer = new ArrayPrinter(Lista);
+					Paper paper = new Paper();
+        	paper.setSize(124, 1400); // in mm
+        	paper.setImageableArea(0, 0, 120, 1390); // in mm (leave some margin)
+					PageFormat pageFormat = new PageFormat();
+					pageFormat.setPaper(paper);
+					pageFormat.setOrientation(PageFormat.PORTRAIT);
+					Book book = new Book();
+					book.append(printer, pageFormat);
+
+					job.setPageable(book);
+
+
+					if(job.printDialog()){
+						try {
+							job.print();
+						} catch (Exception err) {
+							System.out.println("Error: "+ err.getMessage());
+							err.printStackTrace();
+						}
+					}
+					//*End */
+
+
+					contadorXtudo[0] = 0;
+					contadorXburguer[0] = 0;
+					contadorXamericano[0] = 0;
+					contadorXsalada[0] = 0;
+					contadorXAmoda[0] = 0;
+					contadorXfrango[0] = 0;
+					contadorXcalabresa[0] = 0;
+					contadorXbacon[0] = 0;
+					contadorXmisto[0] = 0;
+				}
+				textArea.setText("");
+				textObserv.setText("");
+				Lista.clear();
+			}
 		});
 		btnEnviar.setBounds(49, 485, 89, 23);
 		contentPane.add(btnEnviar);
-		//botao apagar 
+		// botao apagar
 		JButton btnAPAGAR = new JButton("Apagar");
 		btnAPAGAR.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		    textArea.setText("");
+			public void actionPerformed(ActionEvent e) {
+				textArea.setText("");
 				Lista.clear();
 				contadorXtudo[0] = 0;
-				contadorXburguer [0] = 0;
+				contadorXburguer[0] = 0;
 				contadorXamericano[0] = 0;
-			  contadorXsalada [0] = 0;
-			  contadorXAmoda[0] = 0;
-			  contadorXfrango[0] = 0;
-				contadorXcalabresa [0] = 0;
-			  contadorXbacon[0] = 0;
-			  contadorXmisto[0] = 0;	
-		    }
+				contadorXsalada[0] = 0;
+				contadorXAmoda[0] = 0;
+				contadorXfrango[0] = 0;
+				contadorXcalabresa[0] = 0;
+				contadorXbacon[0] = 0;
+				contadorXmisto[0] = 0;
+			}
 		});
 		btnAPAGAR.setBounds(253, 485, 89, 23);
-		contentPane.add(btnAPAGAR);	
+		contentPane.add(btnAPAGAR);
 		JButton btnNewButton_6 = new JButton("Voltar");
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Tela_inicio Tela_inicio  = new Tela_inicio();
+				Tela_inicio Tela_inicio = new Tela_inicio();
 				Tela_inicio.setVisible(true);
 				dispose();
 			}
