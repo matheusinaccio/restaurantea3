@@ -32,10 +32,17 @@ public class Tela_Cardapio extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextArea textObserv;
-	boolean Xmisto= false;
+	boolean Xmisto = false;
 	boolean XBacon = false;
 	boolean XFrango = false;
 	boolean XTudo = false;
+	boolean XAmericano = false;
+	boolean XSalada = false;
+	boolean XAmoda = false;
+	boolean Xburger = false;
+	boolean Xbacon = false;
+	boolean XCalabresa = false;
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -48,20 +55,23 @@ public class Tela_Cardapio extends JFrame {
 			}
 		});
 	}
+
 	public class ArrayPrinter implements Printable {
 		public ArrayList<String> Lista;
+
 		public ArrayPrinter(ArrayList<String> Lista) {
 			this.Lista = Lista;
 		}
+
 		public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-        Graphics2D g2d = (Graphics2D) graphics;
-        g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
+			Graphics2D g2d = (Graphics2D) graphics;
+			g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
-        // Set the font and font size
-        g2d.setFont(new Font("Monospaced", Font.PLAIN, 6));
+			// Set the font and font size
+			g2d.setFont(new Font("Monospaced", Font.PLAIN, 6));
 
-        // Print the ArrayList content
-				int y = 5;
+			// Print the ArrayList content
+			int y = 5;
 			// Divida o texto em linhas
 			// String[] lines = textObserv.getText().split("\n");
 			for (String item : Lista) {
@@ -70,8 +80,9 @@ public class Tela_Cardapio extends JFrame {
 				g2d.drawString(item, 0, y);
 			}
 			return PAGE_EXISTS;
-    }
+		}
 	}
+
 	public Tela_Cardapio() {
 		ArrayList<String> Lista = new ArrayList<>();
 		Random random = new Random();
@@ -80,66 +91,27 @@ public class Tela_Cardapio extends JFrame {
 		// Define o formato da hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		String horaFormatada = agora.format(formatter);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(79, 39, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
 		// Labels e TextAreas
 		JTextArea textArea = new JTextArea();
+		textArea.setBackground(new Color(255, 241, 223));
 		textArea.setEditable(false);
-		textArea.setBounds(49, 85, 316, 222);
+		textArea.setBounds(76, 69, 316, 236);
 		contentPane.add(textArea);
 		// observação
 		JTextArea textObserv = new JTextArea();
-		textObserv.setBounds(49, 334, 316, 108);
+		textObserv.setBackground(new Color(255, 241, 223));
+		textObserv.setBounds(76, 380, 316, 158);
 		contentPane.add(textObserv);
 
-		JLabel lbl1pedido = new JLabel("X-TUDO");
-		lbl1pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl1pedido.setBounds(455, 44, 156, 44);
-		contentPane.add(lbl1pedido);
-
-		JLabel lbl2pedido = new JLabel("X-BURGUER");
-		lbl2pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl2pedido.setBounds(455, 75, 156, 44);
-		contentPane.add(lbl2pedido);
-
-		JLabel lbl3pedido = new JLabel("X-AMERICANO");
-		lbl3pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl3pedido.setBounds(455, 105, 156, 44);
-		contentPane.add(lbl3pedido);
-
-		JLabel lbl4pedido = new JLabel("X-SALADA");
-		lbl4pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl4pedido.setBounds(455, 136, 156, 44);
-		contentPane.add(lbl4pedido);
-
-		JLabel lbl5pedido = new JLabel("X-AMODA");
-		lbl5pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl5pedido.setBounds(455, 168, 156, 44);
-		contentPane.add(lbl5pedido);
-
-		JLabel lbl6pedido = new JLabel("X-FRANGO");
-		lbl6pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl6pedido.setBounds(455, 201, 156, 44);
-		contentPane.add(lbl6pedido);
-
-		JLabel lbl7pedido = new JLabel("X-CALABRESA");
-		lbl7pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl7pedido.setBounds(455, 233, 156, 44);
-		contentPane.add(lbl7pedido);
-
-		JLabel lbl8pedido = new JLabel("X-BACON");
-		lbl8pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl8pedido.setBounds(455, 263, 156, 44);
-		contentPane.add(lbl8pedido);
-
-		JLabel lbl9pedido = new JLabel("MISTO\r\n");
-		lbl9pedido.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lbl9pedido.setBounds(455, 298, 156, 44);
-		contentPane.add(lbl9pedido);
 		// Botoes --------------------------------
 		// teste contador
 		final int[] contadorXtudo = { 0 };
@@ -152,7 +124,9 @@ public class Tela_Cardapio extends JFrame {
 		final int[] contadorXbacon = { 0 };
 		final int[] contadorXmisto = { 0 };
 		// Botão Xtudo
-		JButton btnaddXtudo = new JButton(" + ");
+		JButton btnaddXtudo = new JButton("X-TUDO");
+		btnaddXtudo.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Tudo.png"));
+		btnaddXtudo.setBackground(new Color(255, 219, 183));
 		btnaddXtudo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXtudo[0]++;
@@ -162,61 +136,62 @@ public class Tela_Cardapio extends JFrame {
 				XTudo = true;
 			}
 		});
-		btnaddXtudo.setBounds(628, 63, 53, 14);
+		btnaddXtudo.setBounds(442, 65, 150, 33);
 		contentPane.add(btnaddXtudo);
 
-		// Botão Xburger
-		JButton btn2Button = new JButton(" + ");
-		btn2Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXburguer[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-BURGUER ;\n", "") + contadorXburguer[0] + "-X-BURGUER ;\n";
-				textArea.setText(novoTexto);
-			}
-		});
-
-		btn2Button.setBounds(628, 90, 53, 14);
-		contentPane.add(btn2Button);
 		// Botão XAmericano
-		JButton btn3Button = new JButton(" + ");
+		
+		JButton btn3Button = new JButton("X-AMERICANO");
+		btn3Button.setBackground(new Color(255, 219, 183));
+		btn3Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Americano.png"));
 		btn3Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXamericano[0]++;
 				String textoAtual = textArea.getText();
 				String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0]
-						+ "-X-AMERICANO;\n";
+						+ "-X-AMERICANO ;\n";
 				textArea.setText(novoTexto);
+				XAmericano = true;
 			}
 		});
-		btn3Button.setBounds(628, 120, 53, 14);
+		btn3Button.setBounds(613, 65, 150, 33);
 		contentPane.add(btn3Button);
 		// Botão XSalada
-		JButton btn4Button = new JButton(" + ");
+		JButton btn4Button = new JButton("X-SALADA");
+		btn4Button.setBackground(new Color(255, 219, 183));
+		btn4Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Salada.png"));
 		btn4Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXsalada[0]++;
 				String textoAtual = textArea.getText();
 				String novoTexto = textoAtual.replaceAll("\\d+-X-SALADA ;\n", "") + contadorXsalada[0] + "-X-SALADA ;\n";
 				textArea.setText(novoTexto);
+				XSalada = true;
 			}
 		});
-		btn4Button.setBounds(628, 151, 53, 14);
+		btn4Button.setBounds(442, 124, 150, 33);
 		contentPane.add(btn4Button);
+
 		// Botão XAmoda
-		JButton btn5Button = new JButton(" + ");
+		JButton btn5Button = new JButton(" X-AMODA");
+		btn5Button.setBackground(new Color(255, 219, 183));
+		btn5Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Amoda.png"));
 		btn5Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXAmoda[0]++;
 				String textoAtual = textArea.getText();
 				String novoTexto = textoAtual.replaceAll("\\d+-X-AMODA ;\n", "") + contadorXAmoda[0] + "-X-AMODA ;\n";
 				textArea.setText(novoTexto);
+				XAmoda = true;
 			}
 		});
-		btn5Button.setBounds(628, 183, 53, 14);
+		btn5Button.setBounds(613, 124, 150, 33);
 		contentPane.add(btn5Button);
+
 		// Botão XFrango
-		JButton btn6Button = new JButton(" + ");
+		JButton btn6Button = new JButton("X-FRANGO");
+		btn6Button.setBackground(new Color(255, 219, 183));
+		btn6Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Frango.png"));
 		btn6Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXfrango[0]++;
@@ -226,11 +201,13 @@ public class Tela_Cardapio extends JFrame {
 				XFrango = true;
 			}
 		});
-		btn6Button.setBounds(628, 216, 53, 14);
+		btn6Button.setBounds(442, 189, 150, 33);
 		contentPane.add(btn6Button);
-		// Botão XCalabresa
 
-		JButton btn7Button = new JButton(" + ");
+		// Botão XCalabresa
+		JButton btn7Button = new JButton("X-CALABRESA");
+		btn7Button.setBackground(new Color(255, 219, 183));
+		btn7Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Calabresa.png"));
 		btn7Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXcalabresa[0]++;
@@ -238,12 +215,15 @@ public class Tela_Cardapio extends JFrame {
 				String novoTexto = textoAtual.replaceAll("\\d+-X-CALABRESA ;\n", "") + contadorXcalabresa[0]
 						+ "-X-CALABRESA ;\n";
 				textArea.setText(novoTexto);
+				XCalabresa = true;
 			}
 		});
-		btn7Button.setBounds(628, 248, 53, 14);
+		btn7Button.setBounds(613, 189, 150, 33);
 		contentPane.add(btn7Button);
 		// Botão XBacon
-		JButton btn8Button = new JButton(" + ");
+		JButton btn8Button = new JButton("X-BACON");
+		btn8Button.setBackground(new Color(255, 219, 183));
+		btn8Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Bacon.png"));
 		btn8Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXbacon[0]++;
@@ -253,12 +233,13 @@ public class Tela_Cardapio extends JFrame {
 				XBacon = true;
 			}
 		});
-		btn8Button.setBounds(628, 278, 53, 14);
+		btn8Button.setBounds(442, 244, 150, 33);
 		contentPane.add(btn8Button);
-
 		// Botão Misto
 
-		JButton btn9Button = new JButton(" + ");
+		JButton btn9Button = new JButton("MISTO");
+		btn9Button.setBackground(new Color(255, 219, 183));
+		btn9Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Misto.png"));
 		btn9Button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contadorXmisto[0]++;
@@ -268,12 +249,15 @@ public class Tela_Cardapio extends JFrame {
 				Xmisto = true;
 			}
 		});
-		btn9Button.setBounds(628, 308, 53, 14);
+		btn9Button.setBounds(613, 244, 150, 33);
 		contentPane.add(btn9Button);
 
 		// Btn Com funçoes --------------------
 
 		JButton btnEnviar = new JButton("Enviar");
+		btnEnviar.setFont(new Font("Stencil", Font.PLAIN, 20));
+		btnEnviar.setForeground(Color.GREEN);
+		btnEnviar.setBackground(new Color(255, 128, 0));
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTextArea seuTextArea = textArea;
@@ -282,12 +266,10 @@ public class Tela_Cardapio extends JFrame {
 					System.out.println("Request NULL");
 
 				} else {
-					// for(int i = 0; i < contadorXmisto.length; i++){
-					// 	Lista.add("xmisto\n");
-					// 	contadorXmisto[0]--;
-					// }
-					if(XBacon == true){
-						Lista.add(contadorXbacon[0]+"-Xbacon\n");
+					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Data: " + horaFormatada);
+					Lista.add("Pedidos //");
+					if (XBacon == true) {
+						Lista.add(contadorXbacon[0] + "-Xbacon\n");
 					}
 					if (Xmisto == true) {
 						Lista.add(contadorXmisto[0] + "-Xmisto\n");
@@ -298,19 +280,34 @@ public class Tela_Cardapio extends JFrame {
 					if (XTudo == true) {
 						Lista.add(contadorXtudo[0] + "-Xtudo\n");
 					}
-					System.out.println("MESA : " + numeroSorteado + " // " + horaFormatada);
-					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Data: " + horaFormatada);
-					Lista.add("Pedidos //");
-					// Lista.add(textArea.getText());
+					if (XAmericano == true) {
+						Lista.add(contadorXamericano[0] + "-Xamericano\n");
+					}
+					if (XSalada == true) {
+						Lista.add(contadorXAmoda[0] + "-Xsalada\n");
+					}
+					if (XCalabresa == true) {
+						Lista.add(contadorXcalabresa[0] + "-Xcalabresa\n");
+					}
+					if (Xbacon == true) {
+						Lista.add(contadorXbacon[1] + "-Xbacon\n");
+					}
+					if (XAmoda == true) {
+						Lista.add(contadorXAmoda[0] + "-Xamoda\n");
+					}
+					if (Xburger == true) {
+						Lista.add(contadorXbacon[1] + "-Xburger\n");
+					}
 					Lista.add("Observações //");
 					Lista.add(textObserv.getText());
 					System.out.println(Lista);
-					//* Printer Teste Start*/
+					// * Printer Teste Start*/
+					
 					PrinterJob job = PrinterJob.getPrinterJob();
 					ArrayPrinter printer = new ArrayPrinter(Lista);
 					Paper paper = new Paper();
-        	paper.setSize(124, 1400); // in mm
-        	paper.setImageableArea(0, 0, 120, 1390); // in mm (leave some margin)
+					paper.setSize(124, 1400); // seta tudo em 40 mm
+					paper.setImageableArea(0, 0, 120, 1390); // coloca a margin em mm
 					PageFormat pageFormat = new PageFormat();
 					pageFormat.setPaper(paper);
 					pageFormat.setOrientation(PageFormat.PORTRAIT);
@@ -319,17 +316,15 @@ public class Tela_Cardapio extends JFrame {
 
 					job.setPageable(book);
 
-
-					if(job.printDialog()){
+					if (job.printDialog()) {
 						try {
 							job.print();
 						} catch (Exception err) {
-							System.out.println("Error: "+ err.getMessage());
+							System.out.println("Error: " + err.getMessage());
 							err.printStackTrace();
 						}
 					}
-					//*End */
-
+					// *End */
 
 					contadorXtudo[0] = 0;
 					contadorXburguer[0] = 0;
@@ -340,16 +335,29 @@ public class Tela_Cardapio extends JFrame {
 					contadorXcalabresa[0] = 0;
 					contadorXbacon[0] = 0;
 					contadorXmisto[0] = 0;
+					XBacon = false;
+					XFrango = false;
+					XTudo = false;
+					Xmisto = false;
+					XAmericano = false;
+					XSalada = false;
+					XAmericano = false;
+					XCalabresa = false;
+					Xbacon = false;
+					Xburger = false;
 				}
 				textArea.setText("");
 				textObserv.setText("");
 				Lista.clear();
 			}
 		});
-		btnEnviar.setBounds(49, 485, 89, 23);
+		btnEnviar.setBounds(442, 492, 113, 44);
 		contentPane.add(btnEnviar);
 		// botao apagar
 		JButton btnAPAGAR = new JButton("Apagar");
+		btnAPAGAR.setForeground(Color.RED);
+		btnAPAGAR.setFont(new Font("Stencil", Font.PLAIN, 20));
+		btnAPAGAR.setBackground(new Color(255, 128, 0));
 		btnAPAGAR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textArea.setText("");
@@ -363,11 +371,25 @@ public class Tela_Cardapio extends JFrame {
 				contadorXcalabresa[0] = 0;
 				contadorXbacon[0] = 0;
 				contadorXmisto[0] = 0;
+				XBacon = false;
+				XFrango = false;
+				XTudo = false;
+				Xmisto = false;
+				XAmericano = false;
+				XSalada = false;
+				XAmericano = false;
+				XCalabresa = false;
+				Xbacon = false;
+				Xburger = false;
 			}
 		});
-		btnAPAGAR.setBounds(253, 485, 89, 23);
+		btnAPAGAR.setBounds(639, 492, 113, 44);
 		contentPane.add(btnAPAGAR);
+
 		JButton btnNewButton_6 = new JButton("Voltar");
+		btnNewButton_6.setBackground(new Color(255, 128, 0));
+		btnNewButton_6.setForeground(new Color(255, 255, 255));
+		btnNewButton_6.setFont(new Font("Stencil", Font.PLAIN, 20));
 		btnNewButton_6.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Tela_inicio Tela_inicio = new Tela_inicio();
@@ -375,7 +397,26 @@ public class Tela_Cardapio extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton_6.setBounds(26, 11, 67, 44);
+		btnNewButton_6.setBounds(10, 11, 122, 44);
 		contentPane.add(btnNewButton_6);
+		
+		JLabel lblNewLabel = new JLabel("New label");
+		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/pdd.png")));
+		lblNewLabel.setBounds(10, 69, 46, 164);
+		contentPane.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("New label");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel_1.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/obs.png")));
+		lblNewLabel_1.setBounds(0, 316, 77, 245);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("New label");
+		lblNewLabel_2.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/file_1.png")));
+		lblNewLabel_2.setBounds(402, 244, 400, 346);
+		contentPane.add(lblNewLabel_2);
 	}
 }
