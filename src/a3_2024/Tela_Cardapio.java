@@ -55,7 +55,7 @@ public class Tela_Cardapio extends JFrame {
 			}
 		});
 	}
-
+	//A parte que imprime o texto
 	public class ArrayPrinter implements Printable {
 		public ArrayList<String> Lista;
 
@@ -67,13 +67,13 @@ public class Tela_Cardapio extends JFrame {
 			Graphics2D g2d = (Graphics2D) graphics;
 			g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
-			// Set the font and font size
+			// seta a fonte do testo e o tamanho
 			Font font = new Font("Monospaced", Font.PLAIN, 6);
 			g2d.setFont(font);
 
-			// Print the ArrayList content
+			// largura e altura do texto sendo y altura e lineWidth largura
 			int y = 5;
-			int lineWidth = 120; // adjust this value to change the line width
+			int lineWidth = 120; 
 			FontMetrics metrics = g2d.getFontMetrics();
 
 			for (String item : Lista) {
@@ -101,10 +101,12 @@ public class Tela_Cardapio extends JFrame {
 	}
 
 	public Tela_Cardapio() {
+		//Lista de pedidos
 		ArrayList<String> Lista = new ArrayList<>();
 		Random random = new Random();
 		int numeroSorteado = random.nextInt(5) + 1;
 		LocalDateTime agora = LocalDateTime.now();
+
 		// Define o formato da hora
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 		String horaFormatada = agora.format(formatter);
@@ -117,13 +119,13 @@ public class Tela_Cardapio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		// Labels e TextAreas
+		// Area do texto que mostra as comidas
 		JTextArea textArea = new JTextArea();
 		textArea.setBackground(new Color(255, 241, 223));
 		textArea.setEditable(false);
 		textArea.setBounds(76, 69, 316, 236);
 		contentPane.add(textArea);
-		// observação
+		// Area do texto de observações
 		JTextArea textObserv = new JTextArea();
 		textObserv.setLineWrap(true);
 		textObserv.setWrapStyleWord(true);
@@ -131,8 +133,7 @@ public class Tela_Cardapio extends JFrame {
 		textObserv.setBounds(76, 380, 316, 158);
 		contentPane.add(textObserv);
 
-		// Botoes --------------------------------
-		// teste contador
+		//Contador de comidas
 		final int[] contadorXtudo = { 0 };
 		final int[] contadorXburguer = { 0 };
 		final int[] contadorXamericano = { 0 };
@@ -142,7 +143,8 @@ public class Tela_Cardapio extends JFrame {
 		final int[] contadorXcalabresa = { 0 };
 		final int[] contadorXbacon = { 0 };
 		final int[] contadorXmisto = { 0 };
-		// Botão Xtudo
+
+		//Botões que adicionam a comida
 		JButton btnaddXtudo = new JButton("X-TUDO");
 		btnaddXtudo.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Tudo.png"));
 		btnaddXtudo.setBackground(new Color(255, 219, 183));
@@ -161,8 +163,6 @@ public class Tela_Cardapio extends JFrame {
 		});
 		btnaddXtudo.setBounds(442, 65, 150, 33);
 		contentPane.add(btnaddXtudo);
-
-		// Botão XAmericano
 
 		JButton btn3Button = new JButton("X-AMERICANO");
 		btn3Button.setBackground(new Color(255, 219, 183));
@@ -183,125 +183,124 @@ public class Tela_Cardapio extends JFrame {
 		btn3Button.setBounds(613, 65, 150, 33);
 		contentPane.add(btn3Button);
 
-		// Botão XSalada
+		
 		JButton btn4Button = new JButton("X-SALADA");
-btn4Button.setBackground(new Color(255, 219, 183));
-btn4Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Salada.png"));
-btn4Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXsalada[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-SALADA")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-SALADA ;\n", contadorXsalada[0] + "-X-SALADA ;\n");
-        } else {
-            textoAtual += contadorXsalada[0] + "-X-SALADA ;\n";
-        }
-        textArea.setText(textoAtual);
-        XSalada = true;
-    }
-});
-btn4Button.setBounds(442, 124, 150, 33);
-contentPane.add(btn4Button);
+		btn4Button.setBackground(new Color(255, 219, 183));
+		btn4Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Salada.png"));
+		btn4Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXsalada[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-SALADA")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-SALADA ;\n", contadorXsalada[0] + "-X-SALADA ;\n");
+				} else {
+					textoAtual += contadorXsalada[0] + "-X-SALADA ;\n";
+				}
+				textArea.setText(textoAtual);
+				XSalada = true;
+			}
+		});
+		btn4Button.setBounds(442, 124, 150, 33);
+		contentPane.add(btn4Button);
 
-// Botão XAmoda
-JButton btn5Button = new JButton(" X-AMODA");
-btn5Button.setBackground(new Color(255, 219, 183));
-btn5Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Amoda.png"));
-btn5Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXAmoda[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-AMODA")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-AMODA ;\n", contadorXAmoda[0] + "-X-AMODA ;\n");
-        } else {
-            textoAtual += contadorXAmoda[0] + "-X-AMODA ;\n";
-        }
-        textArea.setText(textoAtual);
-        XAmoda = true;
-    }
-});
-btn5Button.setBounds(613, 124, 150, 33);
-contentPane.add(btn5Button);
 
-		// Botão XFrango
+		JButton btn5Button = new JButton(" X-AMODA");
+		btn5Button.setBackground(new Color(255, 219, 183));
+		btn5Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Amoda.png"));
+		btn5Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXAmoda[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-AMODA")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-AMODA ;\n", contadorXAmoda[0] + "-X-AMODA ;\n");
+				} else {
+					textoAtual += contadorXAmoda[0] + "-X-AMODA ;\n";
+				}
+				textArea.setText(textoAtual);
+				XAmoda = true;
+			}
+		});
+		btn5Button.setBounds(613, 124, 150, 33);
+		contentPane.add(btn5Button);
+
 		JButton btn6Button = new JButton("X-FRANGO");
-btn6Button.setBackground(new Color(255, 219, 183));
-btn6Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Frango.png"));
-btn6Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXfrango[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-FRANGO")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-FRANGO ;\n", contadorXfrango[0] + "-X-FRANGO ;\n");
-        } else {
-            textoAtual += contadorXfrango[0] + "-X-FRANGO ;\n";
-        }
-        textArea.setText(textoAtual);
-        XFrango = true;
-    }
-});
-btn6Button.setBounds(442, 189, 150, 33);
-contentPane.add(btn6Button);
+		btn6Button.setBackground(new Color(255, 219, 183));
+		btn6Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Frango.png"));
+		btn6Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXfrango[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-FRANGO")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-FRANGO ;\n", contadorXfrango[0] + "-X-FRANGO ;\n");
+				} else {
+					textoAtual += contadorXfrango[0] + "-X-FRANGO ;\n";
+				}
+				textArea.setText(textoAtual);
+				XFrango = true;
+			}
+		});
+		btn6Button.setBounds(442, 189, 150, 33);
+		contentPane.add(btn6Button);
 
-// Botão XCalabresa
-JButton btn7Button = new JButton("X-CALABRESA");
-btn7Button.setBackground(new Color(255, 219, 183));
-btn7Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Calabresa.png"));
-btn7Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXcalabresa[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-CALABRESA")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-CALABRESA ;\n", contadorXcalabresa[0] + "-X-CALABRESA ;\n");
-        } else {
-            textoAtual += contadorXcalabresa[0] + "-X-CALABRESA ;\n";
-        }
-        textArea.setText(textoAtual);
-        XCalabresa = true;
-    }
-});
-btn7Button.setBounds(613, 189, 150, 33);
-contentPane.add(btn7Button);
+		// Botão XCalabresa
+		JButton btn7Button = new JButton("X-CALABRESA");
+		btn7Button.setBackground(new Color(255, 219, 183));
+		btn7Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Calabresa.png"));
+		btn7Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXcalabresa[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-CALABRESA")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-CALABRESA ;\n", contadorXcalabresa[0] + "-X-CALABRESA ;\n");
+				} else {
+					textoAtual += contadorXcalabresa[0] + "-X-CALABRESA ;\n";
+				}
+				textArea.setText(textoAtual);
+				XCalabresa = true;
+			}
+		});
+		btn7Button.setBounds(613, 189, 150, 33);
+		contentPane.add(btn7Button);
 		// Botão XBacon
 		JButton btn8Button = new JButton("X-BACON");
-btn8Button.setBackground(new Color(255, 219, 183));
-btn8Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Bacon.png"));
-btn8Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXbacon[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-BACON")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-BACON ;\n", contadorXbacon[0] + "-X-BACON ;\n");
-        } else {
-            textoAtual += contadorXbacon[0] + "-X-BACON ;\n";
-        }
-        textArea.setText(textoAtual);
-        XBacon = true;
-    }
-});
-btn8Button.setBounds(442, 244, 150, 33);
-contentPane.add(btn8Button);
+		btn8Button.setBackground(new Color(255, 219, 183));
+		btn8Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Bacon.png"));
+		btn8Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXbacon[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-BACON")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-BACON ;\n", contadorXbacon[0] + "-X-BACON ;\n");
+				} else {
+					textoAtual += contadorXbacon[0] + "-X-BACON ;\n";
+				}
+				textArea.setText(textoAtual);
+				XBacon = true;
+			}
+		});
+		btn8Button.setBounds(442, 244, 150, 33);
+		contentPane.add(btn8Button);
 
-// Botão Misto
+		// Botão Misto
 
-JButton btn9Button = new JButton("MISTO");
-btn9Button.setBackground(new Color(255, 219, 183));
-btn9Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Misto.png"));
-btn9Button.addActionListener(new ActionListener() {
-    public void actionPerformed(ActionEvent e) {
-        contadorXmisto[0]++;
-        String textoAtual = textArea.getText();
-        if (textoAtual.contains("X-MISTO")) {
-            textoAtual = textoAtual.replaceAll("(\\d+)-X-MISTO ;\n", contadorXmisto[0] + "-X-MISTO ;\n");
-        } else {
-            textoAtual += contadorXmisto[0] + "-X-MISTO ;\n";
-        }
-        textArea.setText(textoAtual);
-        Xmisto = true;
-    }
-});
-btn9Button.setBounds(613, 244, 150, 33);
-contentPane.add(btn9Button);
+		JButton btn9Button = new JButton("MISTO");
+		btn9Button.setBackground(new Color(255, 219, 183));
+		btn9Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Misto.png"));
+		btn9Button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				contadorXmisto[0]++;
+				String textoAtual = textArea.getText();
+				if (textoAtual.contains("X-MISTO")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-MISTO ;\n", contadorXmisto[0] + "-X-MISTO ;\n");
+				} else {
+					textoAtual += contadorXmisto[0] + "-X-MISTO ;\n";
+				}
+				textArea.setText(textoAtual);
+				Xmisto = true;
+			}
+		});
+		btn9Button.setBounds(613, 244, 150, 33);
+		contentPane.add(btn9Button);
 
 		// Btn Com funçoes --------------------
 
@@ -312,13 +311,15 @@ contentPane.add(btn9Button);
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JTextArea seuTextArea = textArea;
+				// Checa se tem pedidos para fazer
 				if (textArea.getText().trim().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "O campo de texto está vazio! ");
 					System.out.println("Request NULL");
-
+					// caso tenha
 				} else {
 					Lista.add("Mesa: " + String.valueOf(numeroSorteado) + " // " + " Data: " + horaFormatada);
 					Lista.add("Pedidos //");
+					// adiciona os pedidos no arraylist
 					if (XBacon == true) {
 						Lista.add(contadorXbacon[0] + "-Xbacon\n");
 					}
@@ -349,11 +350,12 @@ contentPane.add(btn9Button);
 					if (Xburger == true) {
 						Lista.add(contadorXbacon[1] + "-Xburger\n");
 					}
+
 					Lista.add("Observações //");
 					Lista.add(textObserv.getText());
 					System.out.println(Lista);
-					// * Printer Teste Start*/
-
+					// * Printer  Start*/
+					//formata a pagina e chama a impreção
 					PrinterJob job = PrinterJob.getPrinterJob();
 					ArrayPrinter printer = new ArrayPrinter(Lista);
 					Paper paper = new Paper();
@@ -367,16 +369,14 @@ contentPane.add(btn9Button);
 
 					job.setPageable(book);
 
-					if (job.printDialog()) {
-						try {
-							job.print();
-						} catch (Exception err) {
-							System.out.println("Error: " + err.getMessage());
-							err.printStackTrace();
-						}
+					try {
+						job.print();
+					} catch (Exception err) {
+						System.out.println("Error: " + err.getMessage());
+						err.printStackTrace();
 					}
 					// *End */
-
+					// limpa tudo apos o termino da impreção
 					contadorXtudo[0] = 0;
 					contadorXburguer[0] = 0;
 					contadorXamericano[0] = 0;
@@ -412,6 +412,7 @@ contentPane.add(btn9Button);
 		btnAPAGAR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				textArea.setText("");
+				textObserv.setText("");
 				Lista.clear();
 				contadorXtudo[0] = 0;
 				contadorXburguer[0] = 0;
