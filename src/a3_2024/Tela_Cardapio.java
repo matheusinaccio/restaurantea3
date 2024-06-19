@@ -68,16 +68,33 @@ public class Tela_Cardapio extends JFrame {
 			g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
 
 			// Set the font and font size
-			g2d.setFont(new Font("Monospaced", Font.PLAIN, 6));
+			Font font = new Font("Monospaced", Font.PLAIN, 6);
+			g2d.setFont(font);
 
 			// Print the ArrayList content
 			int y = 5;
-			// Divida o texto em linhas
-			// String[] lines = textObserv.getText().split("\n");
+			int lineWidth = 120; // adjust this value to change the line width
+			FontMetrics metrics = g2d.getFontMetrics();
+
 			for (String item : Lista) {
 				String[] lines = item.split("\\r?\\n");
-				y += 10;
-				g2d.drawString(item, 0, y);
+				for (String line : lines) {
+					int x = 0;
+					String[] words = line.split("\\s+");
+					StringBuilder lineText = new StringBuilder();
+
+					for (String word : words) {
+						if (metrics.stringWidth(lineText.toString() + word + " ") > lineWidth) {
+							g2d.drawString(lineText.toString(), 0, y);
+							y += metrics.getHeight();
+							lineText.setLength(0);
+						}
+						lineText.append(word).append(" ");
+					}
+					g2d.drawString(lineText.toString(), 0, y);
+					y += metrics.getHeight();
+				}
+				y += metrics.getHeight(); // add extra space between lines
 			}
 			return PAGE_EXISTS;
 		}
@@ -108,6 +125,8 @@ public class Tela_Cardapio extends JFrame {
 		contentPane.add(textArea);
 		// observação
 		JTextArea textObserv = new JTextArea();
+		textObserv.setLineWrap(true);
+		textObserv.setWrapStyleWord(true);
 		textObserv.setBackground(new Color(255, 241, 223));
 		textObserv.setBounds(76, 380, 316, 158);
 		contentPane.add(textObserv);
@@ -131,8 +150,12 @@ public class Tela_Cardapio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				contadorXtudo[0]++;
 				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-TUDO ;\n", "") + contadorXtudo[0] + "-X-TUDO ;\n";
-				textArea.setText(novoTexto);
+				if (textoAtual.contains("X-TUDO")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-TUDO ;\n", contadorXtudo[0] + "-X-TUDO ;\n");
+				} else {
+					textoAtual += contadorXtudo[0] + "-X-TUDO ;\n";
+				}
+				textArea.setText(textoAtual);
 				XTudo = true;
 			}
 		});
@@ -140,7 +163,7 @@ public class Tela_Cardapio extends JFrame {
 		contentPane.add(btnaddXtudo);
 
 		// Botão XAmericano
-		
+
 		JButton btn3Button = new JButton("X-AMERICANO");
 		btn3Button.setBackground(new Color(255, 219, 183));
 		btn3Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Americano.png"));
@@ -148,109 +171,137 @@ public class Tela_Cardapio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				contadorXamericano[0]++;
 				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-AMERICANO ;\n", "") + contadorXamericano[0]
-						+ "-X-AMERICANO ;\n";
-				textArea.setText(novoTexto);
+				if (textoAtual.contains("X-AMERICANO")) {
+					textoAtual = textoAtual.replaceAll("(\\d+)-X-AMERICANO ;\n", contadorXamericano[0] + "-X-AMERICANO ;\n");
+				} else {
+					textoAtual += contadorXamericano[0] + "-X-AMERICANO ;\n";
+				}
+				textArea.setText(textoAtual);
 				XAmericano = true;
 			}
 		});
 		btn3Button.setBounds(613, 65, 150, 33);
 		contentPane.add(btn3Button);
+
 		// Botão XSalada
 		JButton btn4Button = new JButton("X-SALADA");
-		btn4Button.setBackground(new Color(255, 219, 183));
-		btn4Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Salada.png"));
-		btn4Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXsalada[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-SALADA ;\n", "") + contadorXsalada[0] + "-X-SALADA ;\n";
-				textArea.setText(novoTexto);
-				XSalada = true;
-			}
-		});
-		btn4Button.setBounds(442, 124, 150, 33);
-		contentPane.add(btn4Button);
+btn4Button.setBackground(new Color(255, 219, 183));
+btn4Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Salada.png"));
+btn4Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXsalada[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-SALADA")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-SALADA ;\n", contadorXsalada[0] + "-X-SALADA ;\n");
+        } else {
+            textoAtual += contadorXsalada[0] + "-X-SALADA ;\n";
+        }
+        textArea.setText(textoAtual);
+        XSalada = true;
+    }
+});
+btn4Button.setBounds(442, 124, 150, 33);
+contentPane.add(btn4Button);
 
-		// Botão XAmoda
-		JButton btn5Button = new JButton(" X-AMODA");
-		btn5Button.setBackground(new Color(255, 219, 183));
-		btn5Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Amoda.png"));
-		btn5Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXAmoda[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-AMODA ;\n", "") + contadorXAmoda[0] + "-X-AMODA ;\n";
-				textArea.setText(novoTexto);
-				XAmoda = true;
-			}
-		});
-		btn5Button.setBounds(613, 124, 150, 33);
-		contentPane.add(btn5Button);
+// Botão XAmoda
+JButton btn5Button = new JButton(" X-AMODA");
+btn5Button.setBackground(new Color(255, 219, 183));
+btn5Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Amoda.png"));
+btn5Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXAmoda[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-AMODA")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-AMODA ;\n", contadorXAmoda[0] + "-X-AMODA ;\n");
+        } else {
+            textoAtual += contadorXAmoda[0] + "-X-AMODA ;\n";
+        }
+        textArea.setText(textoAtual);
+        XAmoda = true;
+    }
+});
+btn5Button.setBounds(613, 124, 150, 33);
+contentPane.add(btn5Button);
 
 		// Botão XFrango
 		JButton btn6Button = new JButton("X-FRANGO");
-		btn6Button.setBackground(new Color(255, 219, 183));
-		btn6Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Frango.png"));
-		btn6Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXfrango[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-FRANGO ;\n", "") + contadorXfrango[0] + "-X-FRANGO ;\n";
-				textArea.setText(novoTexto);
-				XFrango = true;
-			}
-		});
-		btn6Button.setBounds(442, 189, 150, 33);
-		contentPane.add(btn6Button);
+btn6Button.setBackground(new Color(255, 219, 183));
+btn6Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Frango.png"));
+btn6Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXfrango[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-FRANGO")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-FRANGO ;\n", contadorXfrango[0] + "-X-FRANGO ;\n");
+        } else {
+            textoAtual += contadorXfrango[0] + "-X-FRANGO ;\n";
+        }
+        textArea.setText(textoAtual);
+        XFrango = true;
+    }
+});
+btn6Button.setBounds(442, 189, 150, 33);
+contentPane.add(btn6Button);
 
-		// Botão XCalabresa
-		JButton btn7Button = new JButton("X-CALABRESA");
-		btn7Button.setBackground(new Color(255, 219, 183));
-		btn7Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Calabresa.png"));
-		btn7Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXcalabresa[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-CALABRESA ;\n", "") + contadorXcalabresa[0]
-						+ "-X-CALABRESA ;\n";
-				textArea.setText(novoTexto);
-				XCalabresa = true;
-			}
-		});
-		btn7Button.setBounds(613, 189, 150, 33);
-		contentPane.add(btn7Button);
+// Botão XCalabresa
+JButton btn7Button = new JButton("X-CALABRESA");
+btn7Button.setBackground(new Color(255, 219, 183));
+btn7Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Calabresa.png"));
+btn7Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXcalabresa[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-CALABRESA")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-CALABRESA ;\n", contadorXcalabresa[0] + "-X-CALABRESA ;\n");
+        } else {
+            textoAtual += contadorXcalabresa[0] + "-X-CALABRESA ;\n";
+        }
+        textArea.setText(textoAtual);
+        XCalabresa = true;
+    }
+});
+btn7Button.setBounds(613, 189, 150, 33);
+contentPane.add(btn7Button);
 		// Botão XBacon
 		JButton btn8Button = new JButton("X-BACON");
-		btn8Button.setBackground(new Color(255, 219, 183));
-		btn8Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Bacon.png"));
-		btn8Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXbacon[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-BACON ;\n", "") + contadorXbacon[0] + "-X-BACON ;\n";
-				textArea.setText(novoTexto);
-				XBacon = true;
-			}
-		});
-		btn8Button.setBounds(442, 244, 150, 33);
-		contentPane.add(btn8Button);
-		// Botão Misto
+btn8Button.setBackground(new Color(255, 219, 183));
+btn8Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Bacon.png"));
+btn8Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXbacon[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-BACON")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-BACON ;\n", contadorXbacon[0] + "-X-BACON ;\n");
+        } else {
+            textoAtual += contadorXbacon[0] + "-X-BACON ;\n";
+        }
+        textArea.setText(textoAtual);
+        XBacon = true;
+    }
+});
+btn8Button.setBounds(442, 244, 150, 33);
+contentPane.add(btn8Button);
 
-		JButton btn9Button = new JButton("MISTO");
-		btn9Button.setBackground(new Color(255, 219, 183));
-		btn9Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Misto.png"));
-		btn9Button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				contadorXmisto[0]++;
-				String textoAtual = textArea.getText();
-				String novoTexto = textoAtual.replaceAll("\\d+-X-MISTO ;\n", "") + contadorXmisto[0] + "-X-MISTO ;\n";
-				textArea.setText(novoTexto);
-				Xmisto = true;
-			}
-		});
-		btn9Button.setBounds(613, 244, 150, 33);
-		contentPane.add(btn9Button);
+// Botão Misto
+
+JButton btn9Button = new JButton("MISTO");
+btn9Button.setBackground(new Color(255, 219, 183));
+btn9Button.setIcon(new ImageIcon("C:\\Users\\mathe\\eclipse-workspace\\a324\\Img\\X-Misto.png"));
+btn9Button.addActionListener(new ActionListener() {
+    public void actionPerformed(ActionEvent e) {
+        contadorXmisto[0]++;
+        String textoAtual = textArea.getText();
+        if (textoAtual.contains("X-MISTO")) {
+            textoAtual = textoAtual.replaceAll("(\\d+)-X-MISTO ;\n", contadorXmisto[0] + "-X-MISTO ;\n");
+        } else {
+            textoAtual += contadorXmisto[0] + "-X-MISTO ;\n";
+        }
+        textArea.setText(textoAtual);
+        Xmisto = true;
+    }
+});
+btn9Button.setBounds(613, 244, 150, 33);
+contentPane.add(btn9Button);
 
 		// Btn Com funçoes --------------------
 
@@ -302,7 +353,7 @@ public class Tela_Cardapio extends JFrame {
 					Lista.add(textObserv.getText());
 					System.out.println(Lista);
 					// * Printer Teste Start*/
-					
+
 					PrinterJob job = PrinterJob.getPrinterJob();
 					ArrayPrinter printer = new ArrayPrinter(Lista);
 					Paper paper = new Paper();
@@ -399,21 +450,21 @@ public class Tela_Cardapio extends JFrame {
 		});
 		btnNewButton_6.setBounds(10, 11, 122, 44);
 		contentPane.add(btnNewButton_6);
-		
+
 		JLabel lblNewLabel = new JLabel("New label");
 		lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/pdd.png")));
 		lblNewLabel.setBounds(10, 69, 46, 164);
 		contentPane.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("New label");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_1.setVerticalAlignment(SwingConstants.BOTTOM);
 		lblNewLabel_1.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/obs.png")));
 		lblNewLabel_1.setBounds(0, 316, 77, 245);
 		contentPane.add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("New label");
 		lblNewLabel_2.setIcon(new ImageIcon(Tela_Cardapio.class.getResource("/a3_2024/images/file_1.png")));
 		lblNewLabel_2.setBounds(402, 244, 400, 346);
