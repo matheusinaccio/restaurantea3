@@ -368,13 +368,14 @@ public class Tela_Cardapio extends JFrame {
 					book.append(printer, pageFormat);
 
 					job.setPageable(book);
-
+					if(job.printDialog()){
 					try {
 						job.print();
 					} catch (Exception err) {
 						System.out.println("Error: " + err.getMessage());
 						err.printStackTrace();
 					}
+				}
 					// *End */
 					// limpa tudo apos o termino da impreção
 					contadorXtudo[0] = 0;
